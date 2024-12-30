@@ -6,3 +6,6 @@ It seems that the code only checks the last digit of the cd-key and sees if it m
 So it seems that if you just change the last digit you have a 1/10 chance of passing the check.  
 
 I remember reading somewhere which recommended installing Starcraft in the C folder if you have SCR installed but I'm still looking for the source.
+
+I used chaos launcher so I can load brood war in windows mode with the w-mode plugin.
+I downloaded chaos launcher from the [link](https://tl.net/forum/brood-war/65196-chaoslauncher-for-1161?page=67#1330) here.

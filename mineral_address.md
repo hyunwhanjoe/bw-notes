@@ -30,3 +30,30 @@ StarCraft.exe+17F0B0 (0x57F0B0)
 StarCraft.exe+19B460  
 These two addresses seem to keep track which player number you are.  
 If during a game you read your player number from 0x57F0B0, subtract your player number by one, multiply by 4 and add by 0x57F0F0, then you can automatically calculate your mineral address.  
+For example:  
+```c++
+#include <Windows.h>
+
+int main(int argc, char** argv) {
+  HWND bw_window = FindWindow(NULL, L"Brood War");
+
+  DWORD process_id = 0;
+  GetWindowThreadProcessId(bw_window, &process_id);
+
+  HANDLE bw_process = OpenProcess(PROCESS_ALL_ACCESS, true, process_id);
+
+  DWORD player_num = 0;
+  DWORD bytes_read = 0;
+  ReadProcessMemory(bw_process, (void*)0x57F0B0, &player_num, 4, &bytes_read);
+
+  DWORD min_value = 0;
+  player_num--;
+  int min_address = player_num*4 + 0x57F0F0;
+  ReadProcessMemory(bw_process, (void*)min_address, &min_value, 4, &bytes_read);
+
+  return 0;
+}
+```  
+Code was tested with visual studio 2019 on Windows 10.  
+Visual studio should be run as administrator or OpenProcess doesn't work.  
+Starter code was used from [here](https://gamehacking.academy/pages/3/02/)  

@@ -1,7 +1,9 @@
-I used cheat engine for this which can be downloaded [here](https://www.cheatengine.org/downloads.php)  
+# Memory Scanner
+I used cheat engine for memory scanning which can be downloaded [here](https://www.cheatengine.org/downloads.php)  
 Clicking on the download link doesn't seem to download anything for me. I had to go to the link to download it.  
 Deselect any additional/optional programs when installing.  
 
+# Finding your Mineral Memory Address
 First select and open brood war in cheat engine.  
 I used chaos launcher to run brood war in windowed mode.  
 Create a single player game on Astral Balance.  
@@ -24,12 +26,15 @@ StarCraft.exe+17F0FC is used for 3 o'clock
 This matches when opening the map with StarEdit.exe in the Starcraft folder.  
 Player 1 Red is at 9 o'clock and so on.
 
+# Finding your Player Number Memory Address
 Create a single player game on Astral Balance.  
 (New/first) scan for the player number based on your position. For example you are player 2 if you are on top and player 1 if on bottom. Keep making a new game and (next) scan based on your player number. Eventually after switching player numbers you will find two addresses.  
 StarCraft.exe+17F0B0 (0x57F0B0)  
 StarCraft.exe+19B460  
 These two addresses seem to keep track which player number you are.  
-If during a game you read your player number from 0x57F0B0, subtract your player number by one, multiply by 4 and add by 0x57F0F0, then you can automatically calculate your mineral address.  
+
+# Finding your Mineral Address based on your Player Number
+If during a game you read your player number from 0x57F0B0, subtract your player number by one, multiply by 4 and add by 0x57F0F0, then you can automatically calculate your mineral address.
 For example:  
 ```c++
 #include <Windows.h>

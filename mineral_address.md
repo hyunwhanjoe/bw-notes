@@ -51,7 +51,6 @@ int main(int argc, char** argv) {
   DWORD bytes_read = 0;
   ReadProcessMemory(bw_process, (void*)0x57F0B0, &player_num, 4, &bytes_read);
 
-  DWORD min_value = 0;
   player_num--;
   int min_address = player_num*4 + 0x57F0F0;
 

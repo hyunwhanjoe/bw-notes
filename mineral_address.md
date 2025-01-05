@@ -34,7 +34,7 @@ StarCraft.exe+19B460
 These two addresses seem to keep track which player number you are.  
 
 # Finding your Mineral Address based on your Player Number
-If during a game you read your player number from 0x57F0B0, subtract your player number by one, multiply by 4 and add by 0x57F0F0, then you can automatically calculate your mineral address.
+If during a game you read your player number from 0x57F0B0, subtract your player number by one, multiply by 4 and add by 0x57F0F0, then you can automatically calculate your mineral address and write to it.  
 For example:  
 ```c++
 #include <Windows.h>
@@ -54,7 +54,10 @@ int main(int argc, char** argv) {
   DWORD min_value = 0;
   player_num--;
   int min_address = player_num*4 + 0x57F0F0;
-  ReadProcessMemory(bw_process, (void*)min_address, &min_value, 4, &bytes_read);
+
+  DWORD new_min_value = 555;
+  DWORD bytes_written = 0;
+  WriteProcessMemory(bw_process, (void*)min_address, &new_min_value, 4, &bytes_written)
 
   return 0;
 }

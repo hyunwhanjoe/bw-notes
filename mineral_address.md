@@ -64,3 +64,20 @@ int main(int argc, char** argv) {
 Code was tested with visual studio 2019 on Windows 10.  
 Visual studio should be run as administrator or OpenProcess doesn't work.  
 Starter code was used from [here](https://gamehacking.academy/pages/3/02/)  
+
+# Finding the instruction that subtracts minerals
+First, attach starcraft into a debugger. I used [x32dbg](https://sourceforge.net/projects/x64dbg/files/snapshots/) for this.  
+I couldn't find starcraft at first when trying to attach it. I checked "Enable Debug Privilege" in Preferences, Engine to see it.  
+After starting a game on Astral Balance, I put a Hardware, Write, Dword breakpoint on the address of my player number mineral.  
+The game paused on the instruction at 0x004672C2 after spending minerals.    
+```x86asm
+mov edx, dword ptr ds:[eax+0x57F0F0]
+mov ecx, dword ptr ds:[eax+0x6CA51C]
+sub edx, ecx
+mov dword ptr ds:[eax+0x57F0F0], edx
+```
+The eax register holds your player number in terms of 4 bytes (player 1 = 0, player 2 = 4)  
+Your mineral count is then moved to the edx register.  
+The mineral amount that is substracted is added to the ecx register and then substracted from the edx register.  
+The result in edx is then moved back to your mineral address.  
+Filling the insruction with NOPs prevents your minerals from being reduced anymore.  

@@ -80,4 +80,4 @@ The eax register holds your player number in terms of 4 bytes (player 1 = 0, pla
 Your mineral count is then moved to the edx register.  
 The mineral amount that is substracted is added to the ecx register and then substracted from the edx register.  
 The result in edx is then moved back to your mineral address.  
-Filling the insruction with NOPs prevents your minerals from being reduced anymore.  
+Filling the instruction with NOPs prevents your minerals from being reduced anymore.  

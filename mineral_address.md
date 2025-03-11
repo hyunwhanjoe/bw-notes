@@ -66,7 +66,7 @@ Visual studio should be run as administrator or OpenProcess doesn't work.
 Starter code was used from [here](https://gamehacking.academy/pages/3/02/)  
 
 # Finding the instruction that subtracts minerals
-First, attach starcraft into a debugger. I used [x32dbg](https://sourceforge.net/projects/x64dbg/files/snapshots/) for this.  
+First, attach starcraft into a debugger. I used [x32dbg](https://sourceforge.net/projects/x64dbg/files/snapshots/) for this because starcraft is a 32-bit program.  
 I couldn't find starcraft at first when trying to attach it. I checked "Enable Debug Privilege" in Preferences, Engine to see it.  
 After starting a game on Astral Balance, I put a Hardware, Write, Dword breakpoint on the address of my player number mineral.  
 The game paused on the instruction at 0x004672C2 after spending minerals.    

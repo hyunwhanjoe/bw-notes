@@ -11,7 +11,7 @@ Create a single player game on Astral Balance.
 
 The scan found three memory addresses.  
 The value of the 2nd and 3rd addresses revert back to the original value after changing them.  
-So the first address is the address holding the mineral value.
+So the first address is the address holding the mineral value.  
 
 The map Astral Balance only has a top and bottom position.  
 When I am on the bottom position the mineral address is StarCraft.exe+17F0F0 (0x57F0F0) and StarCraft.exe+17F0F4 at the top position.  
@@ -25,6 +25,8 @@ StarCraft.exe+17F0F8 is used for 12 o'clock
 StarCraft.exe+17F0FC is used for 3 o'clock  
 This matches when opening the map with StarEdit.exe in the Starcraft folder.  
 Player 1 Red is at 9 o'clock and so on.
+
+While the 1st mineral address changes based on your starting location, the 2nd address which is StarCraft.exe+28C230 (0x68C230) and is only readable seems to be constant even in a new game.    
 
 # Finding your Player Number Memory Address
 Create a single player game on Astral Balance.  

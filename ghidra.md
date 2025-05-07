@@ -1,3 +1,4 @@
+# Ghidra Installation
 Install ghidra from [link](https://github.com/NationalSecurityAgency/ghidra/releases)  
 Ghidra needs JDK to run.  
 I used this video as a guide to get ghidra running on windows [link](https://www.youtube.com/watch?v=IL60yGDbRGw)  

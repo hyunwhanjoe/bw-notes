@@ -1,0 +1,6 @@
+Address,Description,Notes
+0x400000,StarCraft.exe,2-Mineral-address.md
+0x57F0F0,Player 1 mineral ,2-Mineral-address.md
+0x57F0B0,Player number,2-Mineral-address.md
+0x4672C2,Instruction that subtracts minerals,2-Mineral-address.md
+0x68C230,Mineral value, only readable,2-Mineral-address.md

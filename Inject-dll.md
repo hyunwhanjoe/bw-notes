@@ -9,8 +9,9 @@ void injected_thread() {
     while (true) {
         if (GetAsyncKeyState('M')) {
             DWORD* player_num = (DWORD*)0x57F0B0;
-            (*player_num)--;
-            DWORD* min = (DWORD*)(*player_num*4 + 0x57F0F0);
+            DWORD num = *player_num;
+            num--; // (*player_num)--; don't want to decrement (*player_num)
+            DWORD* min = (DWORD*)(num * 4 + 0x57F0F0);
             *min = 999;
         }
 
@@ -26,6 +27,5 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
     return true;
 }
 ```
-I tested this with chaos launcher and the minerals are added but the screen fades and starcraft crashes afterwards.  
-I'll have to figure what the issue is.  
-![Injecting dlls](images/injecting_dlls.PNG)
+I tested this with chaos launcher and the minerals are added after.  
+![Injecting dlls](images/dll_injection.JPG)

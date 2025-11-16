@@ -63,16 +63,59 @@ int main(int argc, char** argv) {
   return 0;
 }
 ```  
-Code was tested with visual studio 2019 on Windows 10.  
-Visual studio should be run as administrator or OpenProcess doesn't work.  
+C++ code was tested with Visual Studio 2019 on Windows 10.  
+Visual Studio should be run as administrator or OpenProcess doesn't work.  
 Starter code was used from [here](https://gamehacking.academy/pages/3/02/)  
+
+Delphi port of this code was tested on Delphi 12 on Windows 11 and also should be run as an administrator.  
+```delphi
+program Project1;
+{$APPTYPE CONSOLE}
+
+{$R *.res}
+
+uses
+  System.SysUtils,
+  Windows;
+
+var
+  bw_window: HWND;
+  process_id: DWORD;
+  bw_process: THandle;
+  player_num: DWORD;
+  bytes_read: DWORD; //NativeUInt
+  min_address: Integer;
+  mineral: Integer;
+
+begin
+  bw_window := FindWindow(nil, 'Brood War');
+
+  process_id := 0;
+  GetWindowThreadProcessId(bw_window, process_id);
+
+  bw_process := OpenProcess(PROCESS_ALL_ACCESS, True, process_id);
+
+  player_num := 0;
+  bytes_read := 0;
+  ReadProcessMemory(bw_process, Pointer($57F0B0), @player_num, 4, bytes_read);
+
+  Dec(player_num);
+  min_address := player_num * 4 + $57F0F0;
+
+  mineral := 0;
+  ReadProcessMemory(bw_process, Pointer(min_address), @mineral, 4, bytes_read);
+
+  WriteLn(mineral);
+  ReadLn;
+end.
+```
 
 # Finding the instruction that subtracts minerals
 First, attach starcraft into a debugger. I used [x32dbg](https://sourceforge.net/projects/x64dbg/files/snapshots/) for this because starcraft is a 32-bit program.  
 I couldn't find starcraft at first when trying to attach it. I checked "Enable Debug Privilege" in Preferences, Engine to see it.  
 After starting a game on Astral Balance, I put a Hardware, Write, Dword breakpoint on the address of my player number mineral.  
 The game paused on the instruction at 0x004672C2 after spending minerals.    
-```x86asm
+```asm
 mov edx, dword ptr ds:[eax+0x57F0F0]
 mov ecx, dword ptr ds:[eax+0x6CA51C]
 sub edx, ecx

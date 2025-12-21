@@ -58,7 +58,7 @@ int main(int argc, char** argv) {
 
   DWORD new_min_value = 555;
   DWORD bytes_written = 0;
-  WriteProcessMemory(bw_process, (void*)min_address, &new_min_value, 4, &bytes_written)
+  WriteProcessMemory(bw_process, (void*)min_address, &new_min_value, 4, &bytes_written);
 
   return 0;
 }
@@ -85,7 +85,8 @@ var
   player_num: DWORD;
   bytes_read: DWORD; //NativeUInt
   min_address: Integer;
-  mineral: Integer;
+  new_min_value: DWORD;
+  bytes_written: DWORD; //SIZE_T (or NativeUInt)
 
 begin
   bw_window := FindWindow(nil, 'Brood War');
@@ -100,13 +101,11 @@ begin
   ReadProcessMemory(bw_process, Pointer($57F0B0), @player_num, 4, bytes_read);
 
   Dec(player_num);
-  min_address := player_num * 4 + $57F0F0;
+  min_address := player_num*4 + $57F0F0;
 
-  mineral := 0;
-  ReadProcessMemory(bw_process, Pointer(min_address), @mineral, 4, bytes_read);
-
-  WriteLn(mineral);
-  ReadLn;
+  new_min_value := 555;
+  bytes_written := 0;
+  WriteProcessMemory(bw_process, Pointer(min_address), @new_min_value, 4, bytes_written);
 end.
 ```
 

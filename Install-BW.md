@@ -7,6 +7,8 @@ So it seems that if you just change the last digit you have a 1/10 chance of pas
 
 I remember reading somewhere which recommended installing Starcraft in the C folder if you have SCR installed but I'm still looking for the source.
 
-I used chaos launcher so I can load brood war in windows mode with the w-mode plugin.
+I used [chaos launcher](https://liquipedia.net/starcraft/Chaoslauncher) so I can load brood war in windows mode with the [w-mode](https://liquipedia.net/starcraft/W-Mode) plugin.
+I had issues running Brood War in full screen with the screen being cut off in-game on Windows 10 and 11.  
 I downloaded chaos launcher from the [link](https://tl.net/forum/brood-war/65196-chaoslauncher-for-1161?page=67#1330) here.  
-Run chaos launcher as administrator.
+Run chaos launcher as administrator and check the W-MODE checkbox to run Brood War with the w-mode plugin.  
+![w-mode](images/w-mode.png)

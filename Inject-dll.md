@@ -31,26 +31,46 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
 I tested this with chaos launcher and the minerals are added after.  
 ![Injecting dlls](images/dll_injection.JPG)
 
-I am working on a Delphi port but am currently only able to confirm that the DLL was injected.  
-This code was tested with Delphi 12 on Windows 10.  
+This Delphi port was tested with Delphi 12 on Windows 10.  
 ```delphi
 library Project2;
 
-{$R *.res}
-
 uses
-  Windows;
+  Winapi.Windows;
 
-function DllMain(hinstDLL: HINST; fdwReason: DWORD; lpvReserved: Pointer): BOOL; stdcall;
+procedure injected_thread();
+var
+  player_num: PDWORD;
+  num: DWORD;
+  min: PDWORD;
 begin
-  MessageBox(0, nil, nil, 0);
-  Result := True;
+  while True do
+  begin
+    if (GetAsyncKeyState(Ord('M')) <> 0) then
+    begin
+      player_num := Pointer($57F0B0);
+      num := player_num^;
+      Dec(num);
+      min := Pointer(num * 4 + $57F0F0);
+      min^ := 999;
+    end;
+
+    Sleep(1);
+  end;
 end;
 
-exports
-  DllMain;
+procedure DllMain(fdwReason: DWORD);
+var
+  ThreadID: DWORD;
+begin
+  if fdwReason = DLL_PROCESS_ATTACH then
+  begin
+    CreateThread(nil, 0, @injected_thread, nil, 0, ThreadID);
+  end;
+end;
 
 begin
   DllProc := @DllMain;
+  DllMain(DLL_PROCESS_ATTACH);
 end.
 ```
